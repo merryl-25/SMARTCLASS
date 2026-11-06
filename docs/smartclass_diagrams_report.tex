@@ -1,0 +1,104 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Essential Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper, margin=1in]{geometry}
+\usepackage{graphicx}      % Required for inserting images
+\usepackage{float}         % Allows [H] positioning for figures
+\usepackage{booktabs}      % Professional tables
+\usepackage{hyperref}      % Clickable links and references
+\usepackage{caption}       % Enhanced caption formatting
+\usepackage{subcaption}    % For subfigures if needed
+
+% Define where images are stored (optional, default looks in current folder or images/)
+\graphicspath{{images/}{./}}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=cyan
+}
+
+\title{\textbf{SmartClass mmWave Intelligent Automation System}\\
+\large System Design, Architecture, and UML Specifications}
+\author{SmartClass Engineering Team}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This document details the software and hardware architecture of the SmartClass mmWave intelligent classroom automation platform. We provide the complete Unified Modeling Language (UML) specifications, including Use Case, Class, Component Architecture, and Sequence diagrams representing both the React/Firebase edge application and the ESP32 LD2410 24\,GHz radar firmware.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+% ========================================================
+\section{System Architecture and Specifications}
+% ========================================================
+
+The SmartClass platform uses a 24\,GHz FMCW mmWave radar (HLK-LD2410) coupled with an ESP32 microcontroller and a React web dashboard. The system operates on role-based access control (RBAC), dividing operational privileges between normal students/observers and Super Administrators.
+
+% --------------------------------------------------------
+\subsection{Use Case Diagram}
+% --------------------------------------------------------
+Figure~\ref{fig:usecase} illustrates the actors and use cases across the web dashboard and embedded edge controller.
+
+\begin{figure}[H]
+    \centering
+    % A4 Fit: width=\textwidth and height=0.45\textheight with keepaspectratio guarantees no page overflow
+    \includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{use_case_diagram.png}
+    \caption{UML Use Case Diagram: Normal User, Super Administrator, ESP32 Microcontroller, and Firebase Cloud interactions.}
+    \label{fig:usecase}
+\end{figure}
+
+Normal users have read-only access to live presence telemetry, 24\,GHz FMCW radar gate visualization, and the Web Serial USB gateway. Super Administrators possess full control, including admin role provisioning, gate threshold calibration, appliance manual overrides, and energy analytics.
+
+% --------------------------------------------------------
+\subsection{Class Diagram}
+% --------------------------------------------------------
+Figure~\ref{fig:class} describes the software object-oriented structure, showing React state classes, context providers, and firmware data structures.
+
+\begin{figure}[H]
+    \centering
+    % A4 Fit: Keeps text readable across full A4 width without height overflow
+    \includegraphics[width=\textwidth,height=0.55\textheight,keepaspectratio]{class_diagram.png}
+    \caption{UML Class Diagram: React state controllers, Web Serial Gateway, Firebase auth/store, and ESP32 embedded drivers.}
+    \label{fig:class}
+\end{figure}
+
+% --------------------------------------------------------
+\subsection{System Component Architecture Diagram}
+% --------------------------------------------------------
+Figure~\ref{fig:architecture} presents the multi-tiered hardware and software architecture, from physical sensors and relays to cloud backends.
+
+\begin{figure}[H]
+    \centering
+    % A4 Fit: Perfectly balanced landscape ratio
+    \includegraphics[width=\textwidth,height=0.45\textheight,keepaspectratio]{system_architecture.png}
+    \caption{Component Architecture: mmWave Sensing Edge, Local USB Gateway, Client-Side React SPA, and Firebase Cloud Platform.}
+    \label{fig:architecture}
+\end{figure}
+
+% --------------------------------------------------------
+\subsection{Sequence Diagram}
+% --------------------------------------------------------
+Figure~\ref{fig:sequence} depicts the execution sequence for radar target acquisition, active-low Tri-State relay control, and real-time dashboard telemetry streaming.
+
+\begin{figure}[H]
+    \centering
+    % A4 Fit: Clean sequence flow within one A4 page
+    \includegraphics[width=\textwidth,height=0.48\textheight,keepaspectratio]{sequence_diagram.png}
+    \caption{UML Sequence Diagram: mmWave packet processing, Tri-State relay switching, and Web Serial/Firebase synchronizations.}
+    \label{fig:sequence}
+\end{figure}
+
+% ========================================================
+\section{Conclusion}
+% ========================================================
+The unified model ensures complete end-to-end reliability, safety through High-Z fail-safe relay switching, and separation of privileges through cloud and local role verification.
+
+\end{document}
