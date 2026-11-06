@@ -93,6 +93,5 @@ An IoT and Embedded AI classroom automation solution designed to eliminate passi
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License.
+
 
